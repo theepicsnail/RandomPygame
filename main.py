@@ -71,8 +71,9 @@ def handleKey(event):
         
     
 def displayDebug():
-    gameprint("Loc:%r"%PlayerLoc,0,0,(0,0,0))
-    gameprint("Vel:%r"%PlayerVel,0,20,(0,0,0))
+    global player
+    gameprint("Loc:%r"%player.Location,0,0,(0,0,0))
+    gameprint("Vel:%r"%player.Velocity,0,20,(0,0,0))
     
 while True:
     time_passed = clock.tick(50)
