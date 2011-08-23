@@ -58,7 +58,10 @@ class SpriteStripAnim(object):
         self.loop = loop
         self.frames = frames
         self.f = frames
+        self.stopped = True
     def iter(self):
+        if not self.stopped:
+            return
         self.i = 0
         self.f = self.frames
         self.start()
