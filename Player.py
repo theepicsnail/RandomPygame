@@ -2,6 +2,7 @@ import pygame
 import Configuration
 import SpriteSheet
 import Utils
+
 class Player(pygame.sprite.Sprite):
     Location=[0,0]
     
@@ -46,40 +47,70 @@ class Player(pygame.sprite.Sprite):
         self.image = self.animation.next()
 
 class HumanPlayer(Player):
-    def handleKey(self, event):
-        if event.key == pygame.K_LSHIFT:
-            factor = 3
-            if event.type==pygame.KEYUP:
-                factor = 1.0/factor #invert the factor
-                
-            v[0] = v[0]*factor
-            v[1] = v[1]*factor
-            self.Velocity = v
+    pressed = set()
+    running = False
+    def handleEvent(self, event):
+        if event.type==pygame.KEYDOWN:
+            self.pressed|=set([event.key])
+        elif event.type==pygame.KEYUP:
+            self.pressed-=set([event.key])
+        else:
+            return False # we only care about keyboard events
+        
+        if event.key == Configuration.SPEED:
+            self.running = (Configuration.SPEED in self.pressed)
+            self.recomputeVelocity()
             return True
-           
-        if event.key not in Configuration.Keys:
-            return False #Not a key we use... yet
-        
-        newDir = Configuration.Keys.index(event.key)
-        scale = 1
-        if event.type == pygame.KEYUP:
-            scale = -1
-        
-        v = self.Velocity
-        v[0] += scale*[0,-1,1,0][newDir]
-        v[1] += scale*[1,0,0,-1][newDir]
-        self.Velocity = v
-        return True
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        if event.key in Configuration.Keys:
+            self.recomputeVelocity()
+            return True
             
+        return False# we did not use the key.
+            
+    def recomputeVelocity(self):
+        dirs = Configuration.Keys & self.pressed
+        v = [0,0]
+        amp = 3 if self.running else 1
+        if Configuration.RIGHT in dirs:    v[0]+=amp
+        if Configuration.LEFT  in dirs:    v[0]-=amp
+        if Configuration.DOWN  in dirs:    v[1]+=amp
+        if Configuration.UP    in dirs:    v[1]-=amp
+        self.Velocity = v
+        
+class AutoWalkHumanPlayer(HumanPlayer):
+    target = None
+    def handleEvent(self,event):
+        HumanPlayer.handleEvent(self,event)
+        if event.type==pygame.MOUSEBUTTONDOWN:
+            if event.button==1:
+                self.target = Utils.tupleSum(event.pos,(-16,-32))
+                print "Set target:",self.target
+            if event.button==3:
+                if self.target!=None:
+                    self.Velocity=[0,0]
+                self.target = None
+                print "Unset target."
+    def update(self):
+        HumanPlayer.update(self)
+        if self.target == None:
+            return
+        
+        v = [0,0]
+        if self.target[0] < self.Location[0]:
+            v[0]=-1
+            
+        if self.target[0] > self.Location[0]:
+            v[0]=1
+            
+        if self.target[1] < self.Location[1]:
+            v[1]=-1
+            
+        if self.target[1] > self.Location[1]:
+            v[1]=1
+            
+        if v != self.Velocity:
+            self.Velocity = v
+        
+        
+        
+        

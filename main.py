@@ -53,20 +53,20 @@ pygame.mixer.music.load(Utils.AudioPath("bg.mp3"))
 #pygame.mixer.music.play(-1,-10);#count,position(sec)
 
 screen=pygame.display.set_mode(Configuration.ScreenSize)
-grassImage = pygame.image.load(Utils.ImagePath("grass.jpg"))
+grassImage = pygame.image.load(Utils.ImagePath("stone.jpg"))
 
-player = Player.HumanPlayer(1)#num = which sprite to use.
+player = Player.AutoWalkHumanPlayer(1)#num = which sprite to use.
 		
-def handleKey(event):
+def handleEvent(event):
     global player,DEBUG
     
-    if player.handleKey(event):
+    if player.handleEvent(event):
         return;
-        
-    if event.key==293:#F12
-        DEBUG=(event.type==pygame.KEYDOWN)
-    else:
-        print event
+    if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
+        if event.key==293:#F12
+            DEBUG=(event.type==pygame.KEYDOWN)
+            return 
+    print event
     #f event.key
         
     
@@ -74,17 +74,19 @@ def displayDebug():
     global player
     gameprint("Loc:%r"%player.Location,0,0,(0,0,0))
     gameprint("Vel:%r"%player.Velocity,0,20,(0,0,0))
-    
-while True:
+
+running = True
+while running:
     time_passed = clock.tick(50)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            exit_game()
-        elif event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
-            handleKey(event)
+            running = False
+            break
+        handleEvent(event)
             
+    draw_background(screen,grassImage,(0,0))#map(lambda x:x/-2,player.Location)
+    
     player.update()
-    draw_background(screen,grassImage,map(lambda x:x/-2,player.Location))
     screen.blit(player.image,player.Location)
     
     if DEBUG:
