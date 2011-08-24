@@ -47,6 +47,16 @@ class Player(pygame.sprite.Sprite):
 
 class HumanPlayer(Player):
     def handleKey(self, event):
+        if event.key == pygame.K_LSHIFT:
+            factor = 3
+            if event.type==pygame.KEYUP:
+                factor = 1.0/factor #invert the factor
+                
+            v[0] = v[0]*factor
+            v[1] = v[1]*factor
+            self.Velocity = v
+            return True
+           
         if event.key not in Configuration.Keys:
             return False #Not a key we use... yet
         
