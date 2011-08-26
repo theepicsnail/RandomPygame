@@ -80,35 +80,40 @@ class HumanPlayer(Player):
 class AutoWalkHumanPlayer(HumanPlayer):
     target = None
     def handleEvent(self,event):
-        HumanPlayer.handleEvent(self,event)
+        if HumanPlayer.handleEvent(self,event):
+            self.target = None #player moved on their own, cancel walk
         if event.type==pygame.MOUSEBUTTONDOWN:
             if event.button==1:
-                self.target = Utils.tupleSum(event.pos,(-16,-32))
-                print "Set target:",self.target
+                pos = Utils.tupleSum(event.pos,(-16,-32))
+                if self.target == None:
+                    self.target = [pos]
+                else:
+                    self.target.append(pos)
+                print self.target
             if event.button==3:
                 if self.target!=None:
                     self.Velocity=[0,0]
                 self.target = None
                 print "Unset target."
     def update(self):
+        startV = self.Velocity
         HumanPlayer.update(self)
         if self.target == None:
             return
+            
+        v = [self.target[0][0]-self.Location[0],
+             self.target[0][1]-self.Location[1]]
+        #v = total distance between here and target, cap it at
+        #walking speed
+        v[0]=min(max(-1,v[0]),1)
+        v[1]=min(max(-1,v[1]),1)
         
-        v = [0,0]
-        if self.target[0] < self.Location[0]:
-            v[0]=-1
-            
-        if self.target[0] > self.Location[0]:
-            v[0]=1
-            
-        if self.target[1] < self.Location[1]:
-            v[1]=-1
-            
-        if self.target[1] > self.Location[1]:
-            v[1]=1
-            
-        if v != self.Velocity:
+        if v == [0,0]:
+            self.target.pop(0)
+            print "Waypoint hit.",self.target
+            if not self.target:
+                self.target = None
+        if v != startV:
             self.Velocity = v
         
         
