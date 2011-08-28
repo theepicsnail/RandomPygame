@@ -2,6 +2,7 @@ import pygame
 import Configuration
 import Player
 import Utils
+#test
 """
 class Grass(pygame.sprite.Sprite):
 	def __init__(self):
