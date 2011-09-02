@@ -1,0 +1,36 @@
+-connectability
+
+-chat system
+
+-different levels
+
+-NPCs
+
+-Class system
+
+-Fighting system
+
+-Clock
+	- gets light/dark during times of the day
+
+-items
+
+-sign in screen
+
+-character creation (male or female to begin)
+
+- double click Player and menu shows up
+	- menu has Friend, Info, Attack, Fame
+		- Friend adds friend to a list
+			- Friend list allows you to double click name and private message.
+			- Friend list shows what level the friend is in, and how long you've been friends.
+		
+		- Info shows equipment, level, Fame rating, and class.
+		
+		- Attack allows you to attack player in turn based fighting system.
+			- Attack will ask the oposing player if they want to fight
+				- Players that are +/- 5 levels of each other cannot attack each other.
+		
+		- Fame allows you to add fame to the person
+			-Fame is only allowed once per day per person.
+			-Fame shows how liked a person is in the game.
