@@ -69,11 +69,14 @@ def ConvertLevel(src,dst):
                 v = vals[r*w+c]
                 if v:
                     if printPos:
-                        d += (r,c),
+                        
+                            
+                        d.append((r,c))
                         printPos = False
                     d.append(v)
                 else:
                     printPos = True
+        print name,len(d)
         layers.append((name,props,d))
 
 
