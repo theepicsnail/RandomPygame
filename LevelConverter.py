@@ -32,7 +32,7 @@ from xml.dom.minidom import parse, parseString
 dom = parse(sys.argv[1])
 m = dom.getElementsByTagName("layer")
 numLayers = len(m)
-
+levelData = None
 width,height = None,None
     
 print "Stage 1, sanity check."
@@ -53,7 +53,7 @@ for layer in m:#sanity check.
         if w!=width or h!=height:
             print "Error converting, layers must all be the same dimension"
             exit(1)
-
+levelData = [width,height]
 print "Stage 2, data extraction and compacting"
 layers = [] #(name,[properties],data)
 for layer in m:
@@ -82,7 +82,7 @@ for layer in m:
 
 
 print "Stage 3, stringification and compression"
-data = "%r"%layers
+data = "{}".format((levelData,layers))
 l = len(data)
 factor = 1
 try:
@@ -114,8 +114,8 @@ except:
     pass
 
 try:
-    layers2 = eval(data,{"__builtins__":None},{})#little bit of safety
-    if layers2==layers:
+    levDat,layers2 = eval(data,{"__builtins__":None},{})#little bit of safety
+    if layers2==layers and levDat == levelData:
         print "Passed."
     else:
         print "Failed."
