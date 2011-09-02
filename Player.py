@@ -70,7 +70,7 @@ class HumanPlayer(Player):
     def recomputeVelocity(self):
         dirs = Configuration.Keys & self.pressed
         v = [0,0]
-        amp = 3 if self.running else 1
+        amp = 6 if self.running else 1
         if Configuration.RIGHT in dirs:    v[0]+=amp
         if Configuration.LEFT  in dirs:    v[0]-=amp
         if Configuration.DOWN  in dirs:    v[1]+=amp

@@ -29,7 +29,13 @@ class SpriteSheet(object):
         tups = [(rect[0]+rect[2]*x, rect[1], rect[2], rect[3])
                 for x in range(image_count)]
         return self.images_at(tups, colorkey)
-		
+    def __getitem__(self,loc):
+        
+        if len(loc)!=4:
+            return None
+        if type(loc) != tuple and type(loc)!=list:
+            return None
+        return self.image_at(tuple(loc))
 		
  
 class SpriteStripAnim(object):
