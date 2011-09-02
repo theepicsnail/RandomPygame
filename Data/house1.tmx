@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="20" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="Spritesheet" tilewidth="16" tileheight="16">
+  <image source="../Images/Spritesheet.png" width="1952" height="928"/>
+ </tileset>
+ <layer name="Solid" width="20" height="20">
+  <properties>
+   <property name="Solid" value=""/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzF1MsvA1EUx/GTqGhj2tBW9bHgn0AsEdFiiVDEznOPRCSChI23BfUnePwDiNB6JlRssPKKHYI14pswyVRnqiXhJJ+kN+fML7d3bmZXEdnDPg5QbkrNnFtkHiEsoMQqUooyeMwiXmyYkqPOOzwiTuRglZw1rGOG3iyK05Ojzo+RM44JFNhEClEEq0XEBm2FOYMItrGjxPbU+QyviBkWXGSKXOIKI/RGv+QlKnXexR5z4TbH5v20/jNvkXNdwjJWbN/nDdpFhjBs15+1ZnHOng/2LP2ZDvbSiS68kPOKN4O8vmyR/k8D2Yn3d0tet0OkB70O/dlkSs1r4T49kvOE51/knZJzhnPlb99vHvc932u8TjVvnmdDXuO1Xl4D/zmIRiV+zuHju+EzXqs1Sc4UpnHHPbnHg859GePZcZ/xWq2aNJFa1KGV99qGdnTA74pVq9l3vRLfPyTjCFEc45KMK1zjBluuWFFN3okS36/gu+pHAJUIOjk7NKH587dWgO9sJapQbY3vb5KxhTAieAfOanxn
+  </data>
+ </layer>
+ <layer name="walkable" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztks0KwjAMxwPiSU8F18N8ps0h6EV9K/ci+hyi4Nx9evcVTGiDJesHBY/+IYT0I/k1KcBfpynA2VrOXkhHBdCqsW9FnNIwA1jiuUcB0BfGd2h36zsRl8rcieWjuisN0Gjja7TK+lrExLmbp/m4PvFJSb5UPuLj+sQnJflS7+1tXeIsPT3nde4z3XmivTx5aa/R47lyP33rdGePbz543i375/bJnXvufCvPHF3OnP65fCzmknEuH4u5ZJzio7/k9osViokz9v/eeOay+BorFJOtJ+F8IW2QYRvhyNUVc91+mC9HH83qZ1A=
+  </data>
+ </layer>
+ <layer name="Draw over Char" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFtAS2vAwMdkBsD8QOvJSbtx1oxg4g3gnEu6hgniEfA4MREBsDsQkf5eaNglEwCkYOAAAESAVH
+  </data>
+ </layer>
+</map>
